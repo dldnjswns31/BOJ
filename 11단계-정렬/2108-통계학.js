@@ -15,21 +15,16 @@ const median = sortedArr[Math.floor(sortedArr.length / 2)];
 
 // 최빈값
 function getMode(arr) {
-  const count = {};
+  const count = new Map();
   for (let i = 0; i < arr.length; i++) {
-    if (count[arr[i]]) count[arr[i]] += 1;
-    else count[arr[i]] = 1;
+    if (count.get(arr[i])) count.set(arr[i], count.get(arr[i]) + 1);
+    else count.set(arr[i], 1);
   }
-  const maxCount = Math.max(...Object.values(count));
-
-  const countKeys = Object.keys(count);
+  const maxCount = Math.max(...count.values());
   let modeArr = [];
-  for (let i = 0; i < countKeys.length; i++) {
-    if (count[countKeys[i]] === maxCount) {
-      modeArr.push(countKeys[i]);
-    }
-  }
-  modeArr = modeArr.sort((a, b) => a - b);
+  count.forEach((v, k) => {
+    if (v === maxCount) modeArr.push(k);
+  });
   if (modeArr.length === 1) return modeArr[0];
   else return modeArr[1];
 }
