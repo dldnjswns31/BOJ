@@ -1,25 +1,33 @@
 function solution(tickets) {
-    tickets.sort();
+    tickets = tickets.sort();
+    console.log(tickets);
     let length = tickets.length;
-    let visited = [];
-    let answer = [];
+    let nodes = [];
     
-    function dfs (cur, cnt, path) {
-        if(cnt === length) {
-            answer.push(path);
-        }
-        
+    function dfs (cur, visited, arr) {
         for(let i=0; i<length; i++) {
-            if(visited[i]) continue;
-            if(cur === tickets[i][0]) {
-                visited[i] = true;
-                dfs(tickets[i][1], cnt+1, [...path, tickets[i][1]]);
-                visited[i] = false;
+            if(tickets[i][0] === cur && !visited[i]) {
+                visited[i] = true
+                arr.push(tickets[i][0])
+                
+                if(arr.length === length) {
+                    arr.push(tickets[i][1]);
+                    nodes.push(arr);
+                }
+                
+                dfs(tickets[i][1],[...visited], [...arr]);
             }
         }
     }
     
-    dfs("ICN", 0, ["ICN"]);
     
-    return answer[0]
+    
+    for(let i=0; i<length; i++) {
+        if(tickets[i][0] === 'ICN') {
+            let visited = new Array(length).fill(false);
+            dfs('ICN', visited, []);
+        }
+    }
+    return nodes[0]
+    
 }
