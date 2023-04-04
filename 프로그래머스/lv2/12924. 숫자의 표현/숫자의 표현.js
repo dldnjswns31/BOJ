@@ -1,7 +1,8 @@
 function solution(n) {
-    // sliding window
+    // 슬라이딩 윈도우
     if(n === 1) return 1;
     
+    // 해당 숫자+1만큼 채워진 배열 생성
     const arr = new Array(n+1).fill((_,idx) => idx)
     let start = 1;
     let end = 2;
@@ -20,6 +21,10 @@ function solution(n) {
         } else {
             end++;
         }
+        
+//         if(sum === n) result++
+//         if(sum > n) start++;
+//         else end++;
     }
     
     // 숫자 자기자신 더하기
