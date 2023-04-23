@@ -10,17 +10,17 @@ for (let i = 0; i < C; i++) {
   satisfaction.push([0, ...cur]);
 }
 
-const NArr = input.shift().split(" ").map(Number);
-const MArr = input.shift().split(" ").map(Number);
+const NArr = [0, ...input.shift().split(" ").map(Number)];
+const MArr = [0, ...input.shift().split(" ").map(Number)];
 
 const dp = new Array(N + 1).fill(0).map((_) => new Array(M + 1).fill(0));
 
-for (let i = 1; i <= NArr.length; i++) {
-  for (let j = 1; j <= MArr.length; j++) {
+for (let i = 1; i <= N; i++) {
+  for (let j = 1; j <= M; j++) {
     dp[i][j] = Math.max(
       dp[i][j - 1],
       dp[i - 1][j],
-      dp[i - 1][j - 1] + satisfaction[NArr[i - 1]][MArr[j - 1]]
+      dp[i - 1][j - 1] + satisfaction[NArr[i]][MArr[j]]
     );
   }
 }
